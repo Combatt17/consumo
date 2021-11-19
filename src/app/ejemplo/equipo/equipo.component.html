@@ -1,1 +1,18 @@
-<p>equipo works!</p>
+
+<div class="contenedor">
+   <table class="table">
+      <thead>
+        <tr>
+            <th >Id</th><th>
+            <th >Nombre</th>
+          </tr>
+      </thead>
+      <tbody *ngFor="let equipo of equipos">
+          <tr>
+              <td>{{equipo.id}}</td>
+              <td>{{equipo.nombre}}</td>
+          </tr>
+         
+      </tbody>
+   </table>
+</div>
