@@ -19,4 +19,10 @@ export class EquipoService {
   traerEquipos(){
     return this.http.get<Equipo[]>(`${baseURL}/equipos`, this.headers);
   }
+
+  //Método POST
+  guardarEquipos(data:Equipo){
+     return this.http.post(`${baseURL}/equipos`,data);
+  }
+  
 }
