@@ -13,26 +13,21 @@ export class EquipoComponent implements OnInit {
   //Arreglo que va a contener la respuesta del servidor
   public equipos: Equipo[] = [];
 
+  public auxEquipo!: Equipo;
+
   mensaje: string="";
 
   estado: boolean = false;
 
-  //Definir un grupo de formulario 
-  EquipoForm!:FormGroup;
-
-
   //Inyectar el servicio
-  constructor(private equipoService: EquipoService, private fb: FormBuilder) { }
+  constructor(private equipoService: EquipoService) { }
 
   ngOnInit(): void {
-    //Contruir el formulario
-    this.EquipoForm=this.fb.group({
-      id:['',Validators.required],
-      nombre:['',Validators.required]
-    })
+    
     this.traerEquipos();
   }
 
+  //Utilizando el método del servicio por GET
   traerEquipos(){
    
     this.equipoService.traerEquipos().subscribe((equipos: any)=>{
@@ -41,14 +36,10 @@ export class EquipoComponent implements OnInit {
     })
   }
 
-  enviar(){
+  //Utilizando el método del service por POST
+  enviar(equipo: Equipo){ //Lo recibe desde el $event --->Equipo
     this.estado=true;
-    console.log(this.EquipoForm)
-    if(this.EquipoForm.status=="INVALID"){
-      alert('No pueden haber campos vacios')
-      this.estado=false;
-    }else{
-      this.equipoService.guardarEquipos(this.EquipoForm.value).subscribe((respuesta: any)=>{
+      this.equipoService.guardarEquipos(equipo).subscribe((respuesta: any)=>{
       console.log(respuesta)
       this.mensaje=respuesta.mensaje
       this.traerEquipos();
@@ -56,6 +47,11 @@ export class EquipoComponent implements OnInit {
     })
     }
     
+  
+
+  editar(equipo:Equipo){
+    this.auxEquipo=equipo;
   }
 
 }
+

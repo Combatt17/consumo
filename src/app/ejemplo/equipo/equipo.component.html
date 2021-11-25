@@ -1,36 +1,12 @@
 <div class="flex">
     <div class="contenedor">
-        <h1>Lista de equipos</h1>
-        <table class="table">
-           <thead>
-             <tr>
-                 <th >Id</th><th>
-                 <th >Nombre</th>
-               </tr>
-           </thead>
-           <tbody *ngFor="let equipo of equipos">
-               <tr>
-                   <td>{{equipo.id}}</td>
-                   <td>{{equipo.nombre}}</td>
-               </tr>
-           </tbody>
-        </table>
-     </div>
-     <div class="contenedor">
-         <h1>Formulario</h1>
-         <form [formGroup]="EquipoForm" (ngSubmit)="enviar()">
-             <div class="mb-3">
-                 <label  class="form-label">ID</label>
-                 <input type="text" class="form-control" placeholder="Ingrese el id" formControlName="id">
-             </div>
-             <div class="mb-3">
-                <label  class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Ingrese el nombre del equipo" formControlName="nombre">
-            </div>
-            <button type="submit" class="btn btn-success">Guardar equipo</button>
-         </form>
-         <p class="mt-5">{{mensaje}}</p>
-         <img *ngIf="estado" src="../../../assets/cargando.gif" alt="" srcset="">
-     </div>
-</div>
+        <app-lista [equipos]="equipos" (onEdit)="editar($event)"></app-lista>
+    </div>
+    <div class="contenedor">
+        <app-agregar [equipo]="auxEquipo" (onNuevoEquipo)="enviar($event)">
 
+        </app-agregar>
+        <p class="mt-5">{{mensaje}}</p>
+        <img *ngIf="estado" src="../../../assets/cargando.gif" alt="" srcset="">
+    </div>
+</div>
